@@ -40,21 +40,26 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 800),
-            child: const Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextField(
                         decoration: InputDecoration(hintText: "Hash A"),
+                        style: TextStyle(fontFamily: "Roboto Mono"),
                         autocorrect: false,
                       )),
                   Padding(
                       padding: EdgeInsets.all(8.0),
                       child: TextField(
                         decoration: InputDecoration(hintText: "Hash B"),
+                        style: TextStyle(fontFamily: "Roboto Mono"),
                         autocorrect: false,
-                      ))
+                      )),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(8.0, 64.0, 8.0, 16.0),
+                      child: null)
                 ],
               )),
         ));
