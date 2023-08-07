@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hshck/hash_comparison.dart';
 import 'package:hshck/widgets/comparison_view.dart';
 import 'package:hshck/widgets/good_bad_indicator.dart';
+import 'package:hshck/widgets/labeled_switch.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Hshck',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber, brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.amber, brightness: Brightness.dark),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Hashck'),
@@ -37,6 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String? hashB;
 
   HashComparisonResults? hcr;
+
+  bool showResultsDisplay = false;
 
   void _performComparison() {
     setState(() {
@@ -82,13 +86,34 @@ class _MyHomePageState extends State<MyHomePage> {
                           _performComparison();
                         },
                       )),
+                  // Options bar (currently only detail view toggle)
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    LabeledIconSwitch(
+                        label: const Text("Character-by-character comparison"),
+                        activeIcon: const Icon(Icons.visibility),
+                        inactiveIcon: const Icon(Icons.visibility_off),
+                        value: showResultsDisplay,
+                        onChanged: (state) {
+                          setState(() {
+                            showResultsDisplay = state;
+                          });
+                        })
+                  ]),
                   // Results indicator
                   Padding(
                       padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
-                      child: GoodBadIndicator(state: (hcr?.good ?? true), size: 64,)
-                      ),
+                      child: GoodBadIndicator(
+                        state: (hcr?.good ?? true),
+                        size: 64,
+                      )),
                   // Results display
-                  Flexible(child: ComparisonView(ihcr: ItemizedHashComparisonResults.fromHashes((a: hashA ?? "", b: hashB ?? ""))))
+                  // Not present in element tree if showResultsDisplay is false
+                  showResultsDisplay
+                      ? Flexible(
+                          child: ComparisonView(
+                              ihcr: ItemizedHashComparisonResults.fromHashes(
+                                  (a: hashA ?? "", b: hashB ?? ""))))
+                      : const SizedBox()
                 ],
               )),
         ));
