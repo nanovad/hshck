@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hshck/hash_comparison.dart';
+import 'package:hshck/widgets/comparison_view.dart';
 import 'package:hshck/widgets/good_bad_indicator.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Hshck',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber, brightness: Brightness.dark),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Hashck'),
@@ -81,11 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           _performComparison();
                         },
                       )),
-                  // Results display
+                  // Results indicator
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 64.0, 8.0, 16.0),
-                      child: GoodBadIndicator(state: (hcr?.good ?? true))
-                      )
+                      padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
+                      child: GoodBadIndicator(state: (hcr?.good ?? true), size: 64,)
+                      ),
+                  // Results display
+                  Flexible(child: ComparisonView(ihcr: ItemizedHashComparisonResults.fromHashes((a: hashA ?? "", b: hashB ?? ""))))
                 ],
               )),
         ));

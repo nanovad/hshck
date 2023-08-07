@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 enum WhichHash {
@@ -33,4 +35,31 @@ class HashComparisonResults {
   );
 
   HashComparisonResults({this.uneven, this.unequal});
+}
+
+class ComparisonPoint {
+  String a;
+  String b;
+  bool get same => a == b;
+
+  ComparisonPoint(this.a, this.b);
+}
+
+class ItemizedHashComparisonResults {
+  List<ComparisonPoint> comparisons;
+
+  ItemizedHashComparisonResults(this.comparisons);
+
+  static ItemizedHashComparisonResults fromHashes(var hashes) {
+    String a = hashes.a;
+    String b = hashes.b;
+
+    List<ComparisonPoint> lc = List.empty(growable: true);
+
+    for(int i = 0; i < max(a.length, b.length); i++) {
+      lc.add(ComparisonPoint(a.characters.elementAtOrNull(i) ?? "", b.characters.elementAtOrNull(i) ?? ""));
+    }
+
+    return ItemizedHashComparisonResults(lc);
+  }
 }
