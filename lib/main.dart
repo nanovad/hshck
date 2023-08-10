@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             seedColor: Colors.amber, brightness: Brightness.dark),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Hashck'),
+      home: const MyHomePage(title: 'Hshck'),
     );
   }
 }
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: Text(widget.title),
         ),
         body: Center(
